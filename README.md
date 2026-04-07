@@ -1,75 +1,104 @@
-# React + TypeScript + Vite
+# Produce Board Assignment
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React + TypeScript assignment built with Vite.
 
-Currently, two official plugins are available:
+The app shows a list of produce items on the left and two category columns on the right:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- `Fruit`
+- `Vegetable`
 
-## React Compiler
+Users can move items into the correct category, let them auto-return after 5 seconds, or return them immediately by clicking the item in the category column.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Assignment Behavior
 
-Note: This will impact Vite dev & build performances.
+- The left panel shows the main item list.
+- A search input filters the left list by item name.
+- Clicking an item in the left list moves it to the matching category column immediately.
+- Items stay in the category column for 5 seconds, then move back to the bottom of the left list.
+- Clicking an item inside a category column returns it to the bottom of the left list immediately.
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React 19
+- TypeScript
+- Vite
+- Zustand for state management
+- Lucide React for lightweight icons
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Project Structure
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+The main implementation is organized with a feature-based structure:
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src/
+  App.tsx
+  main.tsx
+  index.css
+  data/
+    example.ts
+  features/
+    produce-board/
+      components/
+      hooks/
+      store/
+      constants.ts
+      types.ts
+      utils.ts
+      produce-board.css
+      index.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### 1. Install dependencies
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+pnpm install
 ```
+
+### 2. Start the development server
+
+```bash
+pnpm dev
+```
+
+Then open the local URL shown in the terminal.
+
+## Available Scripts
+
+### Run development server
+
+```bash
+pnpm dev
+```
+
+### Build for production
+
+```bash
+pnpm build
+```
+
+### Run lint checks
+
+```bash
+pnpm lint
+```
+
+### Preview the production build
+
+```bash
+pnpm preview
+```
+
+## Implementation Notes
+
+- State is managed with Zustand in [src/features/produce-board/store/useProduceBoardStore.ts](/Users/heinmyatthu/Documents/projects/ss-fe-assignment/src/features/produce-board/store/useProduceBoardStore.ts).
+- Timer behavior is isolated in [src/features/produce-board/hooks/useTimer.ts](/Users/heinmyatthu/Documents/projects/ss-fe-assignment/src/features/produce-board/hooks/useTimer.ts).
+- The feature entry point is [src/features/produce-board/components/ProduceBoard.tsx](/Users/heinmyatthu/Documents/projects/ss-fe-assignment/src/features/produce-board/components/ProduceBoard.tsx).
+- The sample dataset comes from [src/data/example.ts](/Users/heinmyatthu/Documents/projects/ss-fe-assignment/src/data/example.ts).
+
+## Notes for Review
+
+- The implementation focuses on clear separation of responsibilities instead of putting all logic in `App.tsx`.
+- The UI is intentionally simple and restrained.
+- Build and lint both pass successfully.
